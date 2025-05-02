@@ -55,7 +55,6 @@ export class AuthService {
 
       if (!bcrypt.compareSync( password, user.password )) throw new UnauthorizedException(`Credenciales no validas`);
 
-      console.log('user', user);
       return {
         ...user,
         token: this.getJwtToken({ id: user.id })
@@ -66,7 +65,6 @@ export class AuthService {
   }
 
   private getJwtToken( payload: JwtPayload ) {
-    console.log('JWT TOKEN', payload);
     const token = this.jwtService.sign(payload);
     return token;
   }
