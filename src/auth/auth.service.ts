@@ -33,7 +33,7 @@ export class AuthService {
 
       return {
         ...user,
-        token: this.getJwtToken({ email: user.email })
+        token: this.getJwtToken({ id: user.id })
       };
       
     } catch (error) {
@@ -48,16 +48,17 @@ export class AuthService {
 
       const user = await this.userRepository.findOne({
         where: { email },
-        select: { email: true, password: true }
+        select: { id: true, email: true, password: true }
       });
 
       if (!user) throw new UnauthorizedException(`Credenciales no validas`);
 
       if (!bcrypt.compareSync( password, user.password )) throw new UnauthorizedException(`Credenciales no validas`);
 
+      console.log('user', user);
       return {
         ...user,
-        token: this.getJwtToken({ email: user.email })
+        token: this.getJwtToken({ id: user.id })
       };
     //} catch (error) {
     //  handleDBExceptions(error);
@@ -65,6 +66,7 @@ export class AuthService {
   }
 
   private getJwtToken( payload: JwtPayload ) {
+    console.log('JWT TOKEN', payload);
     const token = this.jwtService.sign(payload);
     return token;
   }
