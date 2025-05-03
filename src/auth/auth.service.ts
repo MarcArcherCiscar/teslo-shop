@@ -69,4 +69,14 @@ export class AuthService {
     return token;
   }
 
+  async checkAuthStatus( user: User ) {
+    const { id, email } = user;
+
+    return {
+      id,
+      email,
+      token: this.getJwtToken({ id })
+    };
+  }
+
 }
