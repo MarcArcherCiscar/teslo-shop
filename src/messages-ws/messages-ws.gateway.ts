@@ -13,6 +13,8 @@ export class MessagesWsGateway implements OnGatewayConnection, OnGatewayDisconne
   ) {}
 
   handleConnection(client: Socket) {
+    const token = client.handshake.headers.authentication as string;
+    console.log({token});
     //console.log('Client connected', client.id);
     this.messagesWsService.registerClient(client);
 
@@ -48,7 +50,7 @@ export class MessagesWsGateway implements OnGatewayConnection, OnGatewayDisconne
       fullName: 'Soy yo!',
       message: payload.message,
     });
-)
+
   }
 
 }
