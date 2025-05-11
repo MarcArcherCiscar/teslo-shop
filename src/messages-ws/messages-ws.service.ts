@@ -19,7 +19,7 @@ export class MessagesWsService {
         console.log('Client disconnected', clientId);
     }
 
-    getConnectedClients(): number {
-        return Object.keys(this.connectedClients).length;
+    getConnectedClients(): string[] {
+        return Object.keys(this.connectedClients);
     }
 }
